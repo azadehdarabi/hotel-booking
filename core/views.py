@@ -4,21 +4,15 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from common.paginator import ResponsePaginator
-from .choices import RoomStatus
 from .models import Hotel
 from .serializers import ReservationSerializer, HotelSerializer
 from .utils import ReservationHttpResponseHandler
 
 
 class HotelListView(generics.ListAPIView):
+    queryset = Hotel.objects.filter(is_active=True)
     serializer_class = HotelSerializer
     pagination_class = ResponsePaginator
-
-    def get_queryset(self):
-        return Hotel.objects.filter(
-            is_active=True,
-            rooms__status=RoomStatus.EMPTY
-        ).distinct()
 
 
 class CreateReservationView(generics.GenericAPIView):

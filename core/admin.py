@@ -11,8 +11,8 @@ class HotelAdmin(admin.ModelAdmin):
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ('id', 'hotel', 'status', 'capacity')
-    list_filter = ('hotel', 'status', 'capacity')
+    list_display = ('id', 'hotel', 'capacity')
+    list_filter = ('hotel', 'capacity')
     search_fields = ('hotel__name',)
     raw_id_fields = ('hotel',)
 

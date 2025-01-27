@@ -3,7 +3,7 @@ from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 
 from common.models import BaseModel
-from core.choices import RoomStatus, HotelReservationMethodResults
+from core.choices import HotelReservationMethodResults
 
 
 class Hotel(BaseModel):
@@ -41,8 +41,6 @@ class Hotel(BaseModel):
                 start_at=start_at,
                 end_at=end_at
             )
-            available_room.status = RoomStatus.RESERVED
-            available_room.save()
 
         return reservation.room.id, HotelReservationMethodResults.SUCCESSFUL_RESERVATION
 
@@ -50,12 +48,6 @@ class Hotel(BaseModel):
 class Room(BaseModel):
     hotel = models.ForeignKey(verbose_name=_("Hotel"), to=Hotel, on_delete=models.CASCADE, related_name='rooms')
     capacity = models.IntegerField(verbose_name=_("Capacity"), default=1)
-    status = models.IntegerField(
-        verbose_name=_("Room Status"),
-        choices=RoomStatus.choices,
-        default=RoomStatus.EMPTY,
-        db_index=True
-    )
 
     class Meta:
         verbose_name = _("Room")
