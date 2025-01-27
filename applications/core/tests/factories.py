@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from factory.django import DjangoModelFactory
 
-from core.models import Hotel, Room, Reservation
+from applications.core.models import Hotel, Room, Reservation
 
 
 class UserFactory(DjangoModelFactory):
